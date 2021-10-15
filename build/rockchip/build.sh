@@ -219,6 +219,7 @@ if [ "$BUILD_OTA" != true ] ; then
 fi
 
 if [ "$BUILD_UPDATE_IMG" = true ] ; then
+    rm $PACK_TOOL_DIR/rockdev/Image -rf
     mkdir -p $PACK_TOOL_DIR/rockdev/Image/
     cp -f $IMAGE_PATH/* $PACK_TOOL_DIR/rockdev/Image/
 
@@ -241,6 +242,21 @@ if [ "$BUILD_UPDATE_IMG" = true ] ; then
         echo "Make update image failed!"
         exit 1
     fi
+
+    # Radxa Customization
+    if [[ -f android-gpt.sh ]] && [[ -f $ANDROID_BUILD_TOP/$PACK_TOOL_DIR/rockdev/Image/idbloader.img ]]; then
+        echo "Make gpt.img"
+        ./android-gpt.sh
+        if [ $? -eq 0 ]; then
+            echo "Make gpt image ok!"
+            mv $ANDROID_BUILD_TOP/$PACK_TOOL_DIR/rockdev/Image/gpt.img $ANDROID_BUILD_TOP/$IMAGE_PATH/ -f
+        else
+            echo "Make gpt image failed!"
+            exit 1
+        fi
+    fi
+    # Radxa Customization end
+
     cd -
     mv $PACK_TOOL_DIR/rockdev/update.img $IMAGE_PATH/ -f
     rm $PACK_TOOL_DIR/rockdev/Image -rf
