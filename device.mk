@@ -42,7 +42,7 @@ endif
 
 # SDK Version
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.rksdk.version=ANDROID$(PLATFORM_VERSION)_RKR6
+    ro.rksdk.version=ANDROID$(PLATFORM_VERSION)_RKR8
 
 TARGET_SYSTEM_PROP += device/rockchip/common/build/rockchip/rksdk.prop
 
@@ -724,9 +724,6 @@ USE_PRODUCT_RESOLUTION_WHITE := $(shell test -f $(TARGET_DEVICE_DIR)/resolution_
 ifeq ($(strip $(USE_PRODUCT_RESOLUTION_WHITE)), true)
   PRODUCT_COPY_FILES += \
       $(TARGET_DEVICE_DIR)/resolution_white.xml:/system/usr/share/resolution_white.xml
-else
-  PRODUCT_COPY_FILES += \
-      $(LOCAL_PATH)/resolution_white.xml:/system/usr/share/resolution_white.xml
 endif
 
 # Hw Output HAL
@@ -867,6 +864,8 @@ endif
 #only box and atv using our audio policy(write by rockchip)
 ifneq ($(filter atv box, $(strip $(TARGET_BOARD_PLATFORM_PRODUCT))), )
 USE_CUSTOM_AUDIO_POLICY := 1
+PRODUCT_PACKAGES += \
+    libaudiopolicymanagercustom
 endif
 
 # By default, enable zram; experiment can toggle the flag,

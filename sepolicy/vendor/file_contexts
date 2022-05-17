@@ -137,6 +137,7 @@
 /vendor/lib(64)?/libgralloc_priv_omx.so         u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/librga.so                      u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/libiep.so                      u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/libgpudataproducer\.so         u:object_r:same_process_hal_file:s0
 # default hal
 /vendor/bin/hw/android\.hardware\.drm@1\.2-service\.widevine            u:object_r:hal_drm_widevine_exec:s0
 /vendor/bin/hw/android\.hardware\.drm@1\.2-service-lazy\.widevine       u:object_r:hal_drm_widevine_exec:s0
@@ -173,6 +174,7 @@
 #data
 /data/vendor/mediadrm(/.*)?             u:object_r:mediadrm_vendor_data_file:s0
 
+
 #for iso
 #TODO removed for Q
 #/system/bin/iso                    u:object_r:iso_exec:s0
@@ -207,6 +209,8 @@
 #camera hal
 /(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider@2\.[0-9]+-virtual-service          u:object_r:hal_camera_default_exec:s0
 
+/(vendor|system/vendor)/bin/hw/rockchip\.hardware\.hdmi@1\.0-service       u:object_r:hal_hdmi_default_exec:s0
+
 #abc
 /data/vendor/logs(/.*)?                         u:object_r:abc_data_file:s0
 
@@ -219,7 +223,7 @@
 
 #rockchip audiosetting
 
-/(odm|vendor/odm)/bundled_(.*)(/.*)?     u:object_r:vendor_app_file:s0
+/(odm|vendor/odm)/bundled_(.*)(/.*)?    u:object_r:vendor_app_file:s0
 
 #flash_img
 /vendor/bin/flash_img.sh u:object_r:vendor_install_recovery_exec:s0
