@@ -1085,3 +1085,6 @@ PRODUCT_PACKAGES += \
 	media-ctl \
 	v4l2-ctl
 endif
+
+PRODUCT_COPY_FILES += \
+    vendor/rockchip/common/bin/$(TARGET_ARCH)/parted:$(PRODUCT_OUT)/$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/parted
