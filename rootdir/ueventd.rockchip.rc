@@ -61,7 +61,7 @@
 /dev/ttyS0                0660   bluetooth  net_bt
 /dev/ttyS1                0660   bluetooth  net_bt
 /dev/ttyS2                0660   bluetooth  net_bt
-/dev/rtk_btusb            0660   bluetooth  net_bt
+/dev/rtkbt_dev		  0660	 bluetooth  net_bt_admin
 
 #for hid audio
 /dev/hidraw0              0660   audio  audio

@@ -72,3 +72,6 @@ persist.vendor.sys.hid                  u:object_r:vendor_drmservice_prop:s0
 
 # power aidl configs
 ro.vendor.power.                        u:object_r:vendor_power_prop:s0
+
+
+vendor.realtek.bluetooth.		u:object_r:vendor_bluetooth_prop:s0

@@ -168,12 +168,13 @@
 /dev/hidraw0                u:object_r:hidraw_device:s0
 
 #bluetooth
+/dev/rtkbt_dev				u:object_r:rtk_bt_device:s0
 /sys/class/rfkill(/.*)?                 u:object_r:sysfs_bluetooth_writable:s0
 /proc/bluetooth/sleep/lpm               u:object_r:sysfs_bluetooth_writable:s0
 
 #data
 /data/vendor/mediadrm(/.*)?             u:object_r:mediadrm_vendor_data_file:s0
-
+/data/vendor/bluetooth(/.*)?		u:object_r:bluetooth_vendor_data_file:s0
 
 #for iso
 #TODO removed for Q
@@ -184,8 +185,6 @@
 
 #for healthd
 /sys/devices/virtual/power_supply(/.*)?                              u:object_r:sysfs_power:s0
-
-/dev/rtkbt_dev       u:object_r:rtkbt_device:s0
 
 #weaver hal
 /vendor/bin/hw/android\.hardware\.weaver@1\.0-service                u:object_r:weaver-hal-1-0_exec:s0

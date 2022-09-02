@@ -4,7 +4,7 @@ type vendor_incremental_module, vendor_file_type, file_type;
 # vendor data file
 type mediadrm_vendor_data_file, file_type, data_file_type;
 type abc_data_file, file_type, data_file_type;
-
+type bluetooth_vendor_data_file, file_type, data_file_type;
 # /sys
 type sysfs_camera, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_hdmi, fs_type, sysfs_type, mlstrustedobject;
