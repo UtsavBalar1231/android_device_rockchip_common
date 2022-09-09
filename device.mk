@@ -42,7 +42,7 @@ endif
 
 # SDK Version
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.rksdk.version=ANDROID$(PLATFORM_VERSION)_RKR9
+    ro.rksdk.version=ANDROID$(PLATFORM_VERSION)_RKR10
 
 TARGET_SYSTEM_PROP += device/rockchip/common/build/rockchip/rksdk.prop
 
@@ -145,7 +145,8 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_cli \
     wpa_supplicant.conf \
-    dhcpcd.conf
+    dhcpcd.conf \
+    libwifi-hal-package
 
 ifeq ($(ROCKCHIP_USE_LAZY_HAL),true)
 PRODUCT_PACKAGES += \
@@ -427,10 +428,12 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # Add board.platform default property to parsing related rc
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.board.platform=$(strip $(TARGET_BOARD_PLATFORM)) \
+    ro.board.platform=$(strip $(TARGET_BOARD_PLATFORM))
+
+PRODUCT_PRODUCT_PROPERTIES += \
     ro.target.product=$(strip $(TARGET_BOARD_PLATFORM_PRODUCT))
 
-PRODUCT_CHARACTERISTICS := tablet
+PRODUCT_CHARACTERISTICS := $(strip $(TARGET_BOARD_PLATFORM_PRODUCT))
 
 ifeq ($(strip $(BOARD_SUPPORT_MULTIAUDIO)), true)
 PRODUCT_PACKAGES += \
@@ -836,30 +839,18 @@ PRODUCT_PACKAGES += \
 #######for target product ########
 ifeq ($(TARGET_BOARD_PLATFORM_PRODUCT),box)
   DEVICE_PACKAGE_OVERLAYS += device/rockchip/common/overlay_screenoff
-  PRODUCT_PROPERTY_OVERRIDES += \
-       ro.target.product=box \
 
   $(call inherit-product, device/rockchip/common/modules/rockchip_apps_box.mk)
 
 else ifeq ($(TARGET_BOARD_PLATFORM_PRODUCT),atv)
   PRODUCT_PROPERTY_OVERRIDES += \
-       ro.target.product=atv \
        ro.com.google.clientidbase=android-rockchip-tv
   PRODUCT_COPY_FILES += \
        $(LOCAL_PATH)/bootanimation.zip:/system/media/bootanimation.zip
 
   $(call inherit-product, device/rockchip/common/modules/rockchip_apps_box.mk)
 
-else ifeq ($(TARGET_BOARD_PLATFORM_PRODUCT),vr)
-  PRODUCT_PROPERTY_OVERRIDES += \
-        ro.target.product=vr
-else ifeq ($(TARGET_BOARD_PLATFORM_PRODUCT),laptop)
-  PRODUCT_PROPERTY_OVERRIDES += \
-        ro.target.product=laptop
 else # tablet
-  PRODUCT_PROPERTY_OVERRIDES += \
-        ro.target.product=tablet
-
   PRODUCT_PACKAGES += \
         SoundRecorder
 ifneq ($(strip $(BUILD_WITH_GOOGLE_GMS_EXPRESS)),true)
@@ -1084,6 +1075,12 @@ ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 PRODUCT_PACKAGES += \
 	media-ctl \
 	v4l2-ctl
+ifneq (,$(filter rk356x rk3588, $(strip $(TARGET_BOARD_PLATFORM))))
+PRODUCT_PACKAGES += \
+	rkaiq_tool_server \
+	rkaiq_demo \
+	rkaiq_3A_server
+endif
 endif
 
 PRODUCT_COPY_FILES += \
