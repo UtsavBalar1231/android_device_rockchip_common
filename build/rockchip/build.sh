@@ -164,6 +164,12 @@ fi
 echo "package resoure.img with charger images"
 cd u-boot && ./scripts/pack_resource.sh ../$LOCAL_KERNEL_PATH/resource.img && cp resource.img ../$LOCAL_KERNEL_PATH/resource.img && cd -
 
+IS_VEHICLE=`get_build_var BOARD_ROCKCHIP_VEHICLE`
+LOGO_VEHICLE_PATH=`get_build_var TARGET_DEVICE_DIR`
+if [ $IS_VEHICLE = "true" ]; then
+./$LOGO_VEHICLE_PATH/pack_resource.sh ./$LOCAL_KERNEL_PATH/resource.img && cp resource.img ./$LOCAL_KERNEL_PATH/resource.img
+fi
+
 # build android
 if [ "$BUILD_ANDROID" = true ] ; then
     # build OTA
@@ -174,14 +180,57 @@ if [ "$BUILD_ANDROID" = true ] ; then
             echo "make ab image and generate ota package"
             make installclean
             make -j$BUILD_JOBS
+            # check the result of make
+            if [ $? -eq 0 ]; then
+                echo "Build android ok!"
+            else
+                echo "Build android failed!"
+                exit 1
+            fi
+
             make dist -j$BUILD_JOBS
+            # check the result of make
+            if [ $? -eq 0 ]; then
+                echo "Build android ok!"
+            else
+                echo "Build android failed!"
+                exit 1
+            fi
             ./mkimage_ab.sh ota
+            # check the result of make
+            if [ $? -eq 0 ]; then
+                echo "Build android ok!"
+            else
+                echo "Build android failed!"
+                exit 1
+            fi
         else
             echo "generate ota package"
 	    make installclean
 	    make -j$BUILD_JOBS
+            # check the result of make
+            if [ $? -eq 0 ]; then
+                echo "Build android ok!"
+            else
+                echo "Build android failed!"
+                exit 1
+            fi
 	    make dist -j$BUILD_JOBS
+            # check the result of make
+            if [ $? -eq 0 ]; then
+                echo "Build android ok!"
+            else
+                echo "Build android failed!"
+                exit 1
+            fi
             ./mkimage.sh ota
+            # check the result of make
+            if [ $? -eq 0 ]; then
+                echo "Build android ok!"
+            else
+                echo "Build android failed!"
+                exit 1
+            fi
         fi
         cp $OUT/$INTERNAL_OTA_PACKAGE_TARGET $IMAGE_PATH/
         cp $OUT/$INTERNAL_OTA_PACKAGE_OBJ_TARGET $IMAGE_PATH/

@@ -22,7 +22,7 @@ endif # Header V3
 partition_list := $(partition_list),dtbo:$(BOARD_DTBOIMG_PARTITION_SIZE),vbmeta:1M,boot:$(BOARD_BOOTIMAGE_PARTITION_SIZE),recovery:$(BOARD_RECOVERYIMAGE_PARTITION_SIZE)
 endif # BOARD_USES_AB_IMAGE
 
-partition_list := $(partition_list),backup:384M,cache:$(BOARD_CACHEIMAGE_PARTITION_SIZE),metadata:16M
+partition_list := $(partition_list),backup:372M,cache:$(BOARD_CACHEIMAGE_PARTITION_SIZE),metadata:16M
 
 ifeq ($(strip $(BUILD_WITH_GOOGLE_FRP)), true)
 partition_list := $(partition_list),frp:512K
@@ -52,8 +52,8 @@ $(rebuild_parameter) : $(PRODUCT_PARAMETER_TEMPLATE) $(ROCKCHIP_PARAMETER_TOOLS)
 	$(ROCKCHIP_PARAMETER_TOOLS) --input $(PRODUCT_PARAMETER_TEMPLATE) \
 	--start-offset 8192 \
 	--firmware-version $(BOARD_PLATFORM_VERSION) \
-	--machine-model $(PRODUCT_MODEL) \
-	--manufacturer $(PRODUCT_MANUFACTURER) \
+	--machine-model "$(PRODUCT_MODEL)" \
+	--manufacturer "$(PRODUCT_MANUFACTURER)" \
 	--machine $(PRODUCT_DEVICE) \
 	--partition-list $(partition_list) \
 	--output $(rebuild_parameter)

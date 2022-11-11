@@ -70,6 +70,7 @@
 /dev/block/by-name/metadata                     u:object_r:metadata_block_device:s0
 /dev/block/by-name/userdata                     u:object_r:userdata_block_device:s0
 /dev/block/by-name/boot                         u:object_r:boot_block_device:s0
+/dev/block/by-name/vendor_boot                  u:object_r:boot_block_device:s0
 /dev/block/by-name/recovery                     u:object_r:recovery_block_device:s0
 /dev/block/by-name/misc                         u:object_r:misc_block_device:s0
 /dev/block/by-name/security                     u:object_r:security_block_device:s0
@@ -110,6 +111,7 @@
 /vendor/lib(64)?/hw/android\.hardware\.graphics\.allocator@4\.0-impl-bifrost\.so           u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/arm\.graphics-V1-ndk_platform\.so                                  u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/arm\.graphics-V2-ndk_platform\.so                                  u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/arm\.graphics-V3-ndk_platform\.so                                  u:object_r:same_process_hal_file:s0
 /vendor/bin/usb_dongle                          u:object_r:usb_dongle_exec:s0
 /vendor/bin/rockchip.drmservice                 u:object_r:np_rockchip_drmservice_exec:s0
 /vendor/bin/hw/rk_wifi_hal	                    u:object_r:rk_wifi_hal_exec:s0
@@ -219,6 +221,9 @@
 
 #samba
 /system/bin/cifsmanager.sh     u:object_r:vold_exec:s0
+
+#camera360
+/system/bin/camera360.sh     u:object_r:vold_exec:s0
 
 #rockchip audiosetting
 
